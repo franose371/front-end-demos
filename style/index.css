@@ -1,0 +1,36 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.lists{
+	display: inline-block;
+	text-decoration: none;
+	width: 300px;
+	height: 100%;
+	text-align: left;
+	background-color: #DAE3E0;
+	padding: 5px 5px;
+}
+
+
+ul {
+	width: 100%;
+	margin: 0 auto;
+	list-style-type: none;
+}
+
+ul li {
+	text-align: left;
+}
+
+.container {
+	margin: 0 auto;
+	width: 980px;
+	text-align: center;
+}
+
+.wrapper {
+	width: 300px;
+	margin: 100px auto;
+}

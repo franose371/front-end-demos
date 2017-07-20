@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>去除空格</title>
+</head>
+<body>
+
+<input type="text" id="spaces-text" value = "          hello        world    !">
+<button>delete</button>
+	
+
+	<script type="text/javascript">
+		function trim(str) {
+			var reg = /\s/g;
+			var mystr = str.replace(reg, "");
+			return mystr;
+		}
+		var buttons = document.getElementsByTagName("button");
+		for (var i = buttons.length - 1; i >= 0; i--) {
+			buttons[i].onclick = function(e) {
+				if (this.previousElementSibling.value) {
+					this.previousElementSibling.value = trim(this.previousElementSibling.value);
+				}
+			}
+		}
+	</script>
+</body>
+</html>
