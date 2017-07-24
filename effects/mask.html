@@ -2,8 +2,23 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>登录遮罩层</title>
+	<title>遮罩层</title>
 	<style type="text/css">
+		#login {
+			background-color: #ccc;
+			border: none;
+			width: 100px;
+			height: 30px;
+			color: white;
+			font-size: 16px;
+			border-radius: 5px;
+			-webkit-transition-duration: 0.4s; /* Safari */
+    		transition-duration: 0.4s;
+		}
+
+		#login:hover {
+			background-color: #9D9A9A;
+		}
 		#mask {
 			background-color: #000;
 			opacity: 0.75;
@@ -40,7 +55,7 @@
 </head>
 <body>
 
-<button id="login">Log in</button>
+<button id="login">Click me!</button>
 
 <!-- <div id="login-container">
 	<div class="login-con">
@@ -52,34 +67,87 @@
 <script type="text/javascript">
 	var oBtn = document.getElementById("login");
 
-	//获取页面的高度和宽度
-	var sHeight = window.screen.height;
-	var sWidth = window.screen.width;
-	var wHeight = document.documentElement.clientHeight
-	var wWidth = document.documentElement.clientWidth
+	function loginMask() {
+		//获取页面的高度和宽度
+		var sHeight = window.screen.height;
+		var sWidth = window.screen.width;
 
-	var oMask = document.createElement("div");
+
+		var oMask = document.createElement("div");
 		oMask.id = "mask";
 		oMask.style.height = sHeight + "px";
 		oMask.style.width = sWidth + "px";
 
-	var oLogin = document.createElement("div");
-	oLogin.id = "login-container";
-	var oCon = document.createElement("div");
-	oCon.className = "login-con";
-	oCon.style.width = "670px";
-	oCon.style.height = "380px";
-	var oClose = document.createElement("div");
-	oClose.id = "close";
-	oClose.innerHTML = "X";
-	oLogin.style.left = (wWidth - parseInt(oCon.style.width))/2 + "px";
-	oLogin.style.top = (wHeight - parseInt(oCon.style.height))/2 + "px";
+		var oLogin = document.createElement("div");
+		oLogin.id = "login-container";
+		var oCon = document.createElement("div");
+		oCon.className = "login-con";
+		var oClose = document.createElement("div");
+		oClose.id = "close";
+		oClose.innerHTML = "X";
+
+		oLogin.style.display = 'block';
+		oMask.style.display = 'block';
+
+		//在文档流中插入元素
+		document.body.insertBefore(oMask, oBtn);
+		document.body.insertBefore(oLogin, oBtn);
+		oLogin.appendChild(oCon);
+		oCon.appendChild(oClose);
+
+		cHeight = oCon.offsetHeight;
+		cWidth = oCon.offsetWidth;
+
+		//函数节流
+		function throttle(method, context) {
+			clearTimeout(method.tId);
+			method.tId = setTimeout(function() {
+				method.call(context);
+			}, 100);
+		}
+
+		resizeHandler();
+		//设置登录模块的top和left值，使其居中显示
+		function resizeHandler() {
+			var wHeight = document.documentElement.clientHeight
+			var wWidth = document.documentElement.clientWidth
+
+			oLogin.style.left = (wWidth - parseInt(cWidth)) / 2 + "px";
+			oLogin.style.top = (wHeight - parseInt(cHeight)) / 2 + "px";
+		}
 
 
-	document.body.insertBefore(oMask, oBtn);
-	document.body.insertBefore(oLogin, oBtn);
-	oLogin.appendChild(oCon);
-	oCon.appendChild(oClose);
+
+		//当调整窗口大小时，登录框的位置也随之改变
+		window.onresize = function() {
+			throttle(resizeHandler, window);
+		};
+
+		oClose.addEventListener("click", function() {
+			if (oLogin.style.display === 'block') {
+				oLogin.style.display = 'none';
+			}
+			if (oMask.style.display === 'block') {
+				oMask.style.display = 'none';
+			}
+		}, false);
+
+		oMask.addEventListener("click", function() {
+			if (oLogin.style.display === 'block') {
+				oLogin.style.display = 'none';
+			}
+			if (oMask.style.display === 'block') {
+				oMask.style.display = 'none';
+			}
+		}, false);
+
+	}
+
+
+	oBtn.addEventListener("click", function() {
+		loginMask();
+	}, false)
+
 
 </script>
 </body>
