@@ -2,6 +2,19 @@
 @media (min-width:960px){body{font-size:1rem;}}
 @media (min-width:1200px){body{font-size:1.2rem;}}
 
+.container {
+	margin: 0 auto;
+	width: 80%;
+	text-align: center;
+}
+
+
+.wrapper {
+	width: 30%;
+	margin: 10% auto;
+}
+
+
  @media screen and (max-width:980px){
  	.container {
  		margin: 0 auto;
@@ -46,14 +59,3 @@ ul li {
 }
 
 
-.container {
-	margin: 0 auto;
-	width: 80%;
-	text-align: center;
-}
-
-
-.wrapper {
-	width: 30%;
-	margin: 10% auto;
-}
