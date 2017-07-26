@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>验证邮箱和密码</title>
+	<style type="text/css">
+		.info {
+			font-size: 12px;
+			color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="verify">
+		<div class="verify-item">
+			<input type="text" name="email" id="email"><span class="info"></span>
+		</div>
+		<div class="verify-item">
+			<input type="text" name="phone" id="phone"><span class="info"></span>
+		</div>
+	</div>
+	<script type="text/javascript">
+		oMail = document.getElementById("email");
+		oPhone = document.getElementById("phone");
+		oInfo = document.getElementsByClassName("info");
+		oMail.onblur = function () {
+			var str = oMail.value;
+			if (!isEmail(str)) {
+				oInfo[0].style.color = 'red';
+				oInfo[0].innerHTML = 'not an email address';
+			}
+			else {
+				oInfo[0].style.color = 'green';
+				oInfo[0].innerHTML = '^_^';
+			}
+		}
+
+		oPhone.onblur = function () {
+			var str = oPhone.value;
+			if (!isMobilePhone(str)) {
+				oInfo[1].style.color = 'red';
+				oInfo[1].innerHTML = 'not a phone number';
+			}
+			else {
+				oInfo[1].style.color = 'green';
+				oInfo[1].innerHTML = '^_^';
+			}
+		}
+
+		// 判断是否为邮箱地址
+		function isEmail(emailStr) {
+			var reg = /^[a-zA-z0-9_\.-]+@[a-zA-z0-9\.-]+\.[a-z]{2,6}$/g;
+			if (reg.test(emailStr) == true) {
+				return true;
+			} else return false;
+		}
+
+		// 判断是否为手机号
+		function isMobilePhone(phone) {
+			var reg = /^1[34578]\d{9}$/g;
+			if (reg.test(phone) == true) {
+				return true;
+			} else return false;
+		}
+	</script>
+</body>
+</html>
