@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Slide</title>
+	<style type="text/css">
+		.slide-show img {
+			width: 200px;
+			height: 400px;
+			float: left;
+		}
+	</style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		(function SlideShow() {
+			var SlideShow = {};
+			var oSlide;
+			var oCon;
+			var setSlide;
+			var SlideAnimate;
+			SlideShow.init = function(imgUrl, interval, hasArrow, className) {
+				SlideShow.createShow(imgUrl, className);
+				SlideShow.playAnimate(interval);
+				oSlide.addEventListener("mouseenter", function() {
+					clearInterval(SlideAnimate);
+				}, false);
+				oSlide.addEventListener("mouseleave", function() {
+					SlideShow.playAnimate(interval);
+				}, false);
+			}
+			SlideShow.createShow = function(imgUrl, className) {
+				var html = "";
+				for (var i = 0; i < imgUrl.length; i++) {
+					html += "<img src='" + imgUrl[i] + "'" + "alt=" + i + ">";
+				}
+				//创建轮播图div
+				oSlide = document.createElement("div");
+				oSlide.innerHTML = html;
+				oSlide.className = className;
+				document.body.appendChild(oSlide);
+				oSlide.style.width = oSlide.childNodes[0].offsetWidth * imgUrl.length + "px";
+				oSlide.style.height = oSlide.childNodes[0].offsetHeight + "px";
+				oSlide.style.position = 'absolute';
+				//创建父容器
+				oCon = document.createElement("div");
+				oCon.id = "container";
+				oCon.style.width = oSlide.childNodes[0].offsetWidth + "px";
+				oCon.style.position = 'relative';
+				oCon.style.overflow = 'hidden';
+				oCon.style.height = oSlide.childNodes[0].offsetHeight + "px";
+				document.body.appendChild(oCon);
+				oCon.appendChild(oSlide);
+			}
+			SlideShow.addInterval = function(interval) {
+
+			}
+			SlideShow.playAnimate = function(interval) {
+				var position = 0;
+				setSlide = function() {
+					position = position + oSlide.childNodes[0].offsetWidth;
+					oSlide.style.left = "-" + position + 'px';
+				}
+				function playAnimate() {
+					setInterval(setSlide, interval);
+				}
+				SlideAnimate = setInterval(setSlide, interval);
+			}
+			window.SlideShow = SlideShow;
+		})();
+
+		SlideShow.init(["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg"], 1000, true, "slide-show");
+	</script>
+</body>
+</html>
