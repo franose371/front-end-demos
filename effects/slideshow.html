@@ -4,73 +4,327 @@
 	<meta charset="UTF-8">
 	<title>Slide</title>
 	<style type="text/css">
-		.slide-show img {
+		html,body,div,img,span,a{
+			margin: 0;
+			padding: 0;
+		}
+		#slideshow-container {
+			position: relative;
 			width: 200px;
 			height: 400px;
+			overflow: hidden;
+		}
+		#slide-list {
+			position: absolute;
+			width: 1400px;
+			height: 400px;
+		}
+		#slide-list img {
+			width: 200px;
+			height: 400px;
+			display: block;
 			float: left;
+		}
+		#slide-buttons {
+			height: 10px;
+			width: 130px;
+			position: absolute;
+			bottom: 10px;
+			left: 40px;
+		}
+		#slide-buttons span{
+			width: 10px;
+			height: 10px;
+			background-color: #ccc;
+			margin-right: 10px;
+			display: inline-block;
+			border-radius: 50%;
+			border: 1px solid #fff;
+		}
+		#slide-buttons .slide-on {
+			background-color: orangered;
+		}
+		#slide-buttons span:hover {
+			background-color: orangered;
+		}
+		.slide-arrow {
+			width: 50px;
+			height: 50px;
+			background-color: rgba(192, 192, 192, 0.5);
+			display: block;
+			position: absolute;
+			text-decoration: none;
+			color: white;
+			font-size: 40px;
+			line-height: 45px;
+			text-align: center;
+			cursor: pointer;
+			display: none;
+		}
+		.slide-arrow:hover {
+			background-color: rgba(192, 192, 192, 0.7)
+		}
+		.slide-arrow-prev {
+			left: 0;
+			bottom: 50%;
+		}
+		.slide-arrow-next {
+			right: 0;
+			bottom: 50%;
 		}
 	</style>
 </head>
 <body>
-
+<div id="slideshow-container">
+	<div id="slide-list" style="left:-200px">
+		<img src="img/5.jpg" alt="5">
+		<img src="img/1.jpg" alt="1">
+		<img src="img/2.jpg" alt="2">
+		<img src="img/3.jpg" alt="3">
+		<img src="img/4.jpg" alt="4">
+		<img src="img/5.jpg" alt="5">
+		<img src="img/1.jpg" alt="1">
+	</div>
+	<div id="slide-buttons">
+		<span index="1" class="slide-on"></span>
+		<span index="2"></span>
+		<span index="3"></span>
+		<span index="4"></span>
+		<span index="5"></span>
+	</div>
+	<a class="slide-arrow slide-arrow-prev">&lt</a>
+	<a class="slide-arrow slide-arrow-next">&gt</a>
+</div>
 	<script type="text/javascript">
-		(function SlideShow() {
-			var SlideShow = {};
-			var oSlide;
-			var oCon;
-			var setSlide;
-			var SlideAnimate;
-			SlideShow.init = function(imgUrl, interval, hasArrow, className) {
-				SlideShow.createShow(imgUrl, className);
-				SlideShow.playAnimate(interval);
-				oSlide.addEventListener("mouseenter", function() {
-					clearInterval(SlideAnimate);
-				}, false);
-				oSlide.addEventListener("mouseleave", function() {
-					SlideShow.playAnimate(interval);
-				}, false);
-			}
-			SlideShow.createShow = function(imgUrl, className) {
-				var html = "";
-				for (var i = 0; i < imgUrl.length; i++) {
-					html += "<img src='" + imgUrl[i] + "'" + "alt=" + i + ">";
-				}
-				//创建轮播图div
-				oSlide = document.createElement("div");
-				oSlide.innerHTML = html;
-				oSlide.className = className;
-				document.body.appendChild(oSlide);
-				oSlide.style.width = oSlide.childNodes[0].offsetWidth * imgUrl.length + "px";
-				oSlide.style.height = oSlide.childNodes[0].offsetHeight + "px";
-				oSlide.style.position = 'absolute';
-				//创建父容器
-				oCon = document.createElement("div");
-				oCon.id = "container";
-				oCon.style.width = oSlide.childNodes[0].offsetWidth + "px";
-				oCon.style.position = 'relative';
-				oCon.style.overflow = 'hidden';
-				oCon.style.height = oSlide.childNodes[0].offsetHeight + "px";
-				document.body.appendChild(oCon);
-				oCon.appendChild(oSlide);
-			}
-			SlideShow.addInterval = function(interval) {
+	var container = document.getElementById("slideshow-container");
+var lists = document.getElementById("slide-list");
+var button_list = document.getElementById("slide-buttons");
+var buttons = document.getElementById("slide-buttons").getElementsByTagName("span");
+var prev = document.getElementsByClassName("slide-arrow")[0];
+var next = document.getElementsByClassName("slide-arrow")[1];
+var index = 0;
+var animated = false;
+var timer;
+var play;
 
+function showButton(curIndex) {
+	for (var i = 0; i < buttons.length; i++) {
+		if (i !== curIndex) {
+			if (buttons[i].classList.contains("slide-on")) {
+				buttons[i].classList.remove("slide-on");
 			}
-			SlideShow.playAnimate = function(interval) {
-				var position = 0;
-				setSlide = function() {
-					position = position + oSlide.childNodes[0].offsetWidth;
-					oSlide.style.left = "-" + position + 'px';
-				}
-				function playAnimate() {
-					setInterval(setSlide, interval);
-				}
-				SlideAnimate = setInterval(setSlide, interval);
-			}
-			window.SlideShow = SlideShow;
-		})();
+		}
+	}
+	buttons[curIndex].classList.add("slide-on");
+}
 
-		SlideShow.init(["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg"], 1000, true, "slide-show");
+function playAnimate(isReverse, isLoop, interval) {
+	if (!isReverse) {
+		if (isLoop) {
+			timer = setInterval(function() {
+				if (!animated) {
+					if (index === 4) {
+						index = -1;
+					}
+					index++;
+					animate(-200);
+					showButton(index);
+				}
+			}, interval);
+		} else {
+			timer = setInterval(function() {
+				if (!animated) {
+					//在执行判断前还要进行一次动画，所以index需要减1
+					//即在第四张判断是否停下来，然后再执行一次向右的动画
+					if (index === 3) {
+						clearInterval(timer);
+					}
+					index++;
+					animate(-200);
+					showButton(index);
+				}
+			}, interval);
+		}
+
+	} else {
+		index = 4;
+		showButton(index);
+		lists.style.left = (-200) * (index + 1) + "px";
+		if (isLoop) {
+			timer = setInterval(function() {
+				if (!animated) {
+					if (index === 0) {
+						index = 5;
+					}
+					index--;
+					animate(200);
+					showButton(index);
+				}
+			}, interval);
+		} else {
+			timer = setInterval(function() {
+				if (!animated) {
+					//在执行判断前还要进行一次动画，所以index需要加1
+					if (index === 1) {
+						clearInterval(timer);
+					}
+					index--;
+					animate(200);
+					showButton(index);
+				}
+			}, interval);
+		}
+
+	}
+
+}
+
+function stopAnimate() {
+	clearInterval(timer);
+}
+
+playAnimate(false, true, 2000);
+
+function animate(offset) {
+	animated = true;
+	var newLeft = parseInt(lists.style.left) + offset;
+	var time = 300; //位移总时间
+	var interval = 10;
+	//每次的位移量
+	var speed = offset / (time / interval);
+	var movement;
+
+	function go() {
+		if (movement) {
+			clearTimeout(movement);
+		}
+		if ((speed < 0 && parseInt(lists.style.left) > newLeft) || (speed > 0 && parseInt(lists.style.left) < newLeft)) {
+			lists.style.left = parseInt(lists.style.left) + speed + "px";
+			movement = setTimeout(go, interval);
+		} else {
+			animated = false;
+			if (newLeft > -200) {
+				newLeft = -1000;
+			}
+			if (newLeft < -1000) {
+				newLeft = -200;
+			}
+			lists.style.left = newLeft + "px";
+		}
+	}
+	go();
+}
+
+button_list.addEventListener("click", function(e) {
+	if (!animated) {
+		var e = e || window.event;
+		var target = e.srcElement || e.target;
+		var curIndex = target.getAttribute("index") - 1;
+		showButton(curIndex);
+		animate((-200) * (curIndex - index));
+		index = curIndex;
+	}
+}, false);
+
+prev.addEventListener("click", function() {
+	if (!animated) {
+		if (index === 0) {
+			index = 5;
+		}
+		index--;
+		animate(200);
+		showButton(index);
+	}
+
+}, false);
+
+next.addEventListener("click", function() {
+	if (!animated) {
+		if (index === 4) {
+			index = -1;
+		}
+		index++;
+		animate(-200);
+		showButton(index);
+	}
+}, false);
+
+container.addEventListener("mouseover", function() {
+	prev.style.display = "block";
+	next.style.display = "block";
+	stopAnimate();
+}, false);
+
+container.addEventListener("mouseout", function() {
+	prev.style.display = "none";
+	next.style.display = "none";
+	playAnimate(true, false, 1000);
+}, false);
+		// (function SlideShow() {
+		// 	var SlideShow = {};
+		// 	var oSlide;
+		// 	var oCon;
+		// 	var setSlide;
+		// 	var SlideAnimate;
+		// 	var position = 0;
+		// 	var html;
+		// 	SlideShow.init = function(imgUrl, interval, hasArrow) {
+		// 		SlideShow.buildUi(imgUrl, hasArrow,className);
+		// 		SlideShow.playAnimate(interval);
+		// 		oSlide.addEventListener("mouseenter", function() {
+		// 			clearInterval(SlideAnimate);
+		// 		}, false);
+		// 		oSlide.addEventListener("mouseleave", function() {
+		// 			SlideShow.playAnimate(interval);
+		// 		}, false);
+		// 	}
+		// 	SlideShow.buildUi = function(imgUrl,hasArrow,className) {
+		// 		html = "";
+		// 		for (var i = 0; i < imgUrl.length; i++) {
+		// 			html += "<img src='" + imgUrl[i] + "'" + "alt=" + (i+1) + ">";
+		// 		}
+		// 		//创建轮播图div
+		// 		oSlide = document.createElement("div");
+		// 		oSlide.innerHTML = html;
+		// 		oSlide.className = className;
+		// 		document.body.appendChild(oSlide);
+		// 		oSlide.style.width = oSlide.childNodes[0].offsetWidth * imgUrl.length + "px";
+		// 		oSlide.style.height = oSlide.childNodes[0].offsetHeight + "px";
+		// 		oSlide.style.position = 'absolute';
+		// 		//创建父容器
+		// 		oCon = document.createElement("div");
+		// 		oCon.id = "container";
+		// 		oCon.style.width = oSlide.childNodes[0].offsetWidth + "px";
+		// 		oCon.style.position = 'relative';
+		// 		oCon.style.overflow = 'hidden';
+		// 		oCon.style.height = oSlide.childNodes[0].offsetHeight + "px";
+		// 		document.body.appendChild(oCon);
+		// 		oCon.appendChild(oSlide);
+		// 		if (hasArrow === true) {
+		// 			var oButtons = document.createElement("div");
+		// 			oButtons.id= "slide-buttons";
+		// 			html = "";
+		// 			for (var i = 0; i < imgUrl.length; i++) {
+		// 				html+="<span index="+(i+1)+"></span>"
+		// 			}
+		// 			oButtons.innerHTML = html;
+		// 			oCon.appendChild(oButtons);
+		// 		}
+		// 	}
+		// 	SlideShow.playAnimate = function(interval) {
+		// 		setSlide = function() {
+		// 			position = position + oSlide.childNodes[0].offsetWidth;
+		// 			oSlide.style.left = "-" + position + 'px';
+		// 		}
+		// 		function playAnimate() {
+		// 			setInterval(setSlide, interval);
+		// 		}
+		// 		SlideAnimate = setInterval(setSlide, interval);
+		// 	}
+		// 	window.SlideShow = SlideShow;
+		// })();
+
+		// SlideShow.init(["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg"], 1000, true);
 	</script>
 </body>
 </html>
