@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+	<title>Loading</title>
+	<style type="text/css">
+		html, body { width: 100%; height: 100%; }
+		/* 方块进度条的CSS*/
+		.container {width: 90%;height: 100%; margin: 0 auto;position: relative;}
+		.block-loading {width: 50px;height: 50px;position: absolute; left: 0;top: 50%; margin: -25px 20px 0 0 ;}
+		.container .block-loading i {display: block; float: left; width: 6px; height: 50px; background: #399; margin: 0 2px; -webkit-transform: scaleY(.4); -ms-transform: scaleY(.4); transform: scaleY(.4); -webkit-animation: load 1.2s infinite; animation: block 1.2s infinite;}
+		.container .block-loading i:nth-child(2) {-webkit-animation-delay: 0.1s;animation-delay: 0.1s;}
+		.container .block-loading i:nth-child(3) {-webkit-animation-delay: 0.2s;animation-delay: 0.2s;}
+		.container .block-loading i:nth-child(4) {-webkit-animation-delay: 0.3s;animation-delay: 0.3s;}
+		.container .block-loading i:nth-child(5) {-webkit-animation-delay: 0.4s;animation-delay: 0.4s;}
+		@-webkit-keyframes load {
+			0%, 40%,100% {-webkit-transform: scaleY(.4);transform: scaleY(.4);}
+			20% {-webkit-transform: scaleY(1);transform: scaleY(1);}
+		}
+		@keyframes block {
+			0%, 40%,100% {-webkit-transform: scaleY(.4);transform: scaleY(.4);}
+			20% {-webkit-transform: scaleY(1);transform: scaleY(1);}
+		}
+
+		/*spinner*/
+		.spinner-loading {width: 50px;height: 50px;position: absolute; left: 25%;top: 50%; margin: -25px 20px 0 0;}
+		.spinner-loading i {display: block; float: left; width: 6px; height: 12px; background: #399; margin: 0 2px; border-radius: 40%; transform-origin: 3px 24px; position: absolute; animation: spinner linear 2.4s infinite;}
+		.spinner-loading i:nth-child(1) {transform: rotate(0deg); }
+		.spinner-loading i:nth-child(2) {transform: rotate(30deg); animation-delay: -2.2s;}
+		.spinner-loading i:nth-child(3) {transform: rotate(60deg); animation-delay: -2s;}
+		.spinner-loading i:nth-child(4) {transform: rotate(90deg); animation-delay: -1.8s;}
+		.spinner-loading i:nth-child(5) {transform: rotate(120deg); animation-delay: -1.6s;}
+		.spinner-loading i:nth-child(6) {transform: rotate(150deg); animation-delay: -1.4s;}
+		.spinner-loading i:nth-child(7) {transform: rotate(180deg); animation-delay: -1.2s;}
+		.spinner-loading i:nth-child(8) {transform: rotate(210deg); animation-delay: -1s;}
+		.spinner-loading i:nth-child(9) {transform: rotate(240deg); animation-delay: -0.8s;}
+		.spinner-loading i:nth-child(10) {transform: rotate(270deg); animation-delay: -0.6s;}
+		.spinner-loading i:nth-child(11) {transform: rotate(300deg); animation-delay: -0.4s;}
+		.spinner-loading i:nth-child(12) {transform: rotate(330deg); animation-delay: -0.2s;}
+		@keyframes  spinner {
+			0% {opacity: 1;}
+			100% {opacity: 0;}
+		}
+
+		/*message*/
+		.message-loading {width: 80px;height: 50px;position: absolute; left: 40%;top: 50%; margin: -10px 20px 0 0;}
+		.message-loading i {display: block; float: left; width: 12px; height: 12px; background: #399; margin: 0 2px; border-radius: 50%; animation: message 1s infinite;}
+		.message-loading i:nth-child(1) {background: #DD4E00;}
+		.message-loading i:nth-child(2) {background: #F78500; animation-delay: 0.2s;}
+		.message-loading i:nth-child(3) {background: #F9C134; animation-delay: 0.4s;}
+		.message-loading i:nth-child(4) {background: #F0F4C1; animation-delay: 0.6s;}
+
+		@keyframes message {
+			0% {transform: scale(1, 1);}
+			50% {transform: scale(0, 0);}
+			100% {transform: scale(1, 1);}
+		}
+		
+		/*roll*/
+		.roll-loading {width: 50px;height: 50px;position: absolute; left: 70%; top: 50%; margin: -25px 20px 0 0;}
+		.roll-loading i {display: block; float: left; width: 48px; height: 48px; background: transparent; border-radius: 50%; border-right: 2px #399 solid;animation: roll 1s linear infinite;}
+
+		@keyframes roll {
+			0% {transform: rotate(0deg);}
+			100% {transform: rotate(360deg);}
+		}
+
+		/*ball*/
+		.ball-loading {width: 50px;height: 50px;position: absolute; left: 95%; top: 50%; margin: -50px 20px 0 0;}
+		.ball-loading i {display: block; float: left; width: 25px; height: 25px; background: #399; border-radius: 50%; animation: ball 0.8s infinite;}
+
+		@keyframes ball {
+  			0%, 100% {animation-timing-function: cubic-bezier(0.45, 0, 0.9, 0.55);}
+  			0% {-webkit-transform: translate(0, 0);transform: translate(0, 0);}
+  			50% {-webkit-transform: translate(0, 50px);transform: translate(0, 50px);animation-timing-function: cubic-bezier(0, 0.45, 0.55, 0.9);}
+  			100% {-webkit-transform: translate(0, 0);transform: translate(0, 0);}
+  		}
+
+  		/*responsive*/
+		 @media screen and (max-width: 320px) {
+		 	.block-loading { left: 5%; top: 5%; }
+		 	.spinner-loading {left: 5%; top: 25%;}
+		 	.message-loading {left: 5%; top: 45%;}
+		 	.roll-loading { left: 5%; top: 65%; }
+		 	.ball-loading {left: 5%; top: 85%;}
+		 }
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="block-loading">
+			<i></i><i></i><i></i><i></i><i></i>
+		</div>
+
+		<div class="spinner-loading">
+			<i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+		</div>
+
+		<div class="message-loading">
+			<i></i><i></i><i></i><i></i>
+		</div>
+		<div class="roll-loading">
+			<i></i>
+		</div>
+
+		<div class="ball-loading">
+			<i></i>
+		</div>
+	</div>
+
+	
+</body>
+</html>
