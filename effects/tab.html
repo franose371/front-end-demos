@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Tab选项卡</title>
+	<style type="text/css">
+		* {padding: 0;margin: 0;}
+		.tab {width: 298px;height: 98px;margin: 10px;border:1px solid #eee; overflow: hidden;}
+		.tab-header {height: 27px; position: relative;background-color: #F7F7F7;}
+		.tab-header ul {position: absolute;width: 301px; left: -1px;}
+		.tab-header li{float: left; list-style: none;width: 58px;height: 26px;line-height: 26px; text-align: center; overflow: hidden; border-bottom: 1px solid #eee; padding: 0 1px;background-color: #F7F7F7;}
+		.tab-header li.selected {background-color: #FFF; border-bottom-color: #FFF;border-left: 1px solid #eee;border-right: 1px solid #eee; padding: 0; font-weight: bolder;}
+		.tab li a:link, .tab li a:visited {text-decoration:none; color: #000;}
+		.tab li a:hover{color: #F90;}
+
+		.tab-content-mod {margin: 10px 10px 10px 19px;}
+		.tab-content-mod ul li {float: left; width: 134px;height: 25px;overflow: hidden;}
+	</style>
+</head>
+<body>
+	<div id="tab" class="tab">
+		<div class="tab-header">
+			<ul>
+				<li>新闻</li>
+				<li>公告</li>
+				<li>体育</li>
+				<li>国际</li>
+				<li>购物</li>
+			</ul>
+		</div>
+		<div class="tab-content">
+			<div class="tab-content-mod" style="display: block;">
+				<ul>
+					<li><a href="#">我是新闻我是新闻</a></li>
+					<li><a href="#">我是新闻我是新闻</a></li>
+					<li><a href="#">我是新闻我是新闻</a></li>
+					<li><a href="#">我是新闻我是新闻</a></li>
+				</ul>
+			</div>
+				<div class="tab-content-mod" style="display: none;">
+				<ul>
+					<li><span>[公告]</span><a href="#">我是公告我是公告</a></li>
+					<li><span>[公告]</span><a href="#">我是公告我是公告</a></li>
+					<li><span>[公告]</span><a href="#">我是公告我是公告</a></li>
+					<li><span>[公告]</span><a href="#">我是公告我是公告</a></li>
+				</ul>
+			</div>
+			<div class="tab-content-mod" style="display: none;">
+				<ul>
+					<li><a href="#">我是体育我是体育</a></li>
+					<li><a href="#">我是体育我是体育</a></li>
+					<li><a href="#">我是体育我是体育</a></li>
+					<li><a href="#">我是体育我是体育</a></li>
+				</ul>
+			</div>
+			<div class="tab-content-mod" style="display: none;">
+				<ul>
+					<li><a href="#">我是国际我是国际</a></li>
+					<li><a href="#">我是国际我是国际</a></li>
+					<li><a href="#">我是国际我是国际</a></li>
+					<li><a href="#">我是国际我是国际</a></li>
+				</ul>
+			</div>
+			<div class="tab-content-mod" style="display: none;">
+				<ul>
+					<li><a href="#">我是购物我是购物</a></li>
+					<li><a href="#">我是购物我是购物</a></li>
+					<li><a href="#">我是购物我是购物</a></li>
+					<li><a href="#">我是购物我是购物</a></li> 
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		var oTabHeader = document.getElementsByClassName("tab-header")[0]
+		var oTags = oTabHeader.getElementsByTagName("li");
+		var oCons = document.getElementsByClassName("tab-content-mod");
+		for(var i = 0, length1 = oTags.length; i < length1; i++){
+			oTags[i].index = i;
+		}
+		oTabHeader.addEventListener("mouseover", function (e) {
+			e = event || window.event;
+			target = e.srcElement || e.target;
+			target.className = "selected";
+			for(var i = 0, length1 = oCons.length; i < length1; i++){
+				oCons[i].style.display = "none";
+			}
+			oCons[target.index].style.display = 'block';
+		}, false);
+		oTabHeader.addEventListener("mouseout", function (e) {
+			e = event || window.event;
+			target = e.srcElement || e.target;
+			target.className = "";
+			oCons[target.index].style.display = 'none';
+		}, false);
+	</script>
+</body>
+</html>
