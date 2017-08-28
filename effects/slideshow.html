@@ -188,7 +188,7 @@ playAnimate(false, true, 2000);
 function animate(offset) {
 	animated = true;
 	var newLeft = parseInt(lists.style.left) + offset;
-	var time = 300; //位移总时间
+	var time = 600; //位移总时间
 	var interval = 10;
 	//每次的位移量
 	var speed = offset / (time / interval);
@@ -258,73 +258,8 @@ container.addEventListener("mouseover", function() {
 container.addEventListener("mouseout", function() {
 	prev.style.display = "none";
 	next.style.display = "none";
-	playAnimate(true, false, 1000);
+	playAnimate(false, true, 1000);
 }, false);
-		// (function SlideShow() {
-		// 	var SlideShow = {};
-		// 	var oSlide;
-		// 	var oCon;
-		// 	var setSlide;
-		// 	var SlideAnimate;
-		// 	var position = 0;
-		// 	var html;
-		// 	SlideShow.init = function(imgUrl, interval, hasArrow) {
-		// 		SlideShow.buildUi(imgUrl, hasArrow,className);
-		// 		SlideShow.playAnimate(interval);
-		// 		oSlide.addEventListener("mouseenter", function() {
-		// 			clearInterval(SlideAnimate);
-		// 		}, false);
-		// 		oSlide.addEventListener("mouseleave", function() {
-		// 			SlideShow.playAnimate(interval);
-		// 		}, false);
-		// 	}
-		// 	SlideShow.buildUi = function(imgUrl,hasArrow,className) {
-		// 		html = "";
-		// 		for (var i = 0; i < imgUrl.length; i++) {
-		// 			html += "<img src='" + imgUrl[i] + "'" + "alt=" + (i+1) + ">";
-		// 		}
-		// 		//创建轮播图div
-		// 		oSlide = document.createElement("div");
-		// 		oSlide.innerHTML = html;
-		// 		oSlide.className = className;
-		// 		document.body.appendChild(oSlide);
-		// 		oSlide.style.width = oSlide.childNodes[0].offsetWidth * imgUrl.length + "px";
-		// 		oSlide.style.height = oSlide.childNodes[0].offsetHeight + "px";
-		// 		oSlide.style.position = 'absolute';
-		// 		//创建父容器
-		// 		oCon = document.createElement("div");
-		// 		oCon.id = "container";
-		// 		oCon.style.width = oSlide.childNodes[0].offsetWidth + "px";
-		// 		oCon.style.position = 'relative';
-		// 		oCon.style.overflow = 'hidden';
-		// 		oCon.style.height = oSlide.childNodes[0].offsetHeight + "px";
-		// 		document.body.appendChild(oCon);
-		// 		oCon.appendChild(oSlide);
-		// 		if (hasArrow === true) {
-		// 			var oButtons = document.createElement("div");
-		// 			oButtons.id= "slide-buttons";
-		// 			html = "";
-		// 			for (var i = 0; i < imgUrl.length; i++) {
-		// 				html+="<span index="+(i+1)+"></span>"
-		// 			}
-		// 			oButtons.innerHTML = html;
-		// 			oCon.appendChild(oButtons);
-		// 		}
-		// 	}
-		// 	SlideShow.playAnimate = function(interval) {
-		// 		setSlide = function() {
-		// 			position = position + oSlide.childNodes[0].offsetWidth;
-		// 			oSlide.style.left = "-" + position + 'px';
-		// 		}
-		// 		function playAnimate() {
-		// 			setInterval(setSlide, interval);
-		// 		}
-		// 		SlideAnimate = setInterval(setSlide, interval);
-		// 	}
-		// 	window.SlideShow = SlideShow;
-		// })();
-
-		// SlideShow.init(["img/1.jpg", "img/2.jpg", "img/3.jpg", "img/4.jpg", "img/5.jpg"], 1000, true);
 	</script>
 </body>
 </html>

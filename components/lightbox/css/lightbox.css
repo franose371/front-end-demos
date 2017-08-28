@@ -16,7 +16,65 @@
     z-index: 998;
 }
 
-#global-lightbox-mask {
-	
+#global-lightbox-popup {
+	position: fixed;
+    left: 50%;
+    top: 0;
+    z-index: 999;
+    margin-left: -150px;
 }
 
+.lightbox-pic-view {
+    position: relative;
+    border: 5px solid white;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.lightbox-btn {
+    position: absolute;
+    top: 0;
+    width: 20%;
+    z-index: 1;
+    height: 100%;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: center;
+    line-height: 450px;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.lightbox-btn-prev{
+    left: 0;
+}
+
+.lightbox-btn-next{
+    right: 0;
+}
+
+.lightbox-image {
+    display: block;
+}
+
+.lightbox-pic-caption {
+    position: relative;
+    margin: 0 5px;
+    margin-top: -60px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-pic-caption-area {
+    color: white;
+    padding: 7px 5px;
+}
+
+.lightbox-cur-index {
+    color: #999;
+}
+
+.lightbox-close-btn {
+    position: absolute;
+    color: white;
+    right: 10px;
+    top: 5px;
+}

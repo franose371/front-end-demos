@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Dropdown</title>
+	<style type="text/css">
+		div,ul,li{
+			margin: 0px;
+			padding: 0px;
+		}
+		/*第一项*/
+		#first-nav {
+			background-color: #eee;
+			width: 600px;
+			height: 40px;
+			margin: 0 auto;
+		}
+		#first-nav ul {
+			list-style: none;
+		}
+		#first-nav li {
+			position: relative;
+			float: left;
+			line-height: 40px;
+			text-align: center;
+		}
+		#first-nav a{
+			text-decoration: none;
+			color: black;
+			padding: 0 10px;
+			height: 40px;
+		}
+		#first-nav a:hover {
+			color: white;
+			background-color: #666;
+			display: block;
+		}
+		#first-nav ul li ul li{
+			float: none;
+			background-color: #eee;
+			margin-top: 2px;
+		}
+		#first-nav ul li ul {
+			position: absolute;
+			left: 0px;
+			top: 40px;
+			display: none;
+		}
+		#first-nav ul li ul li a:hover {
+			background-color: blue;
+		}
+		#first-nav ul li:hover ul{
+			display: block;
+		}
+
+		/*第二项*/
+		#second-nav {
+			font-size: 12px;
+			font-weight: bold;
+			width: 324px;
+			border-bottom: 8px solid #DC4E1B;
+			overflow: auto;
+			margin: 100px auto;
+		}
+
+		#second-nav li {
+			list-style: none;
+			float: left;
+			margin-right: 1px;
+		}
+
+		#second-nav li a{
+			line-height: 20px;
+			text-decoration: none;
+			background-color: #ddd;
+			color: #666;
+			display: block;
+			width: 80px;
+			text-align: center;
+		}
+
+		#second-nav li a span {
+			display: none;
+		}
+		#second-nav li a:hover span {
+			display: block;
+			background-color: #DC4E1B;
+			color: white;
+		}
+	 	#second-nav li a:hover {
+	 		margin-top: -20px;
+	 	}
+
+	 	/*第三项*/
+	 	#third-nav {
+	 		width: 600px;
+	 		margin: 100px auto;
+	 		border: 1px solid #AA1520;
+	 		background-color: #B51B23;
+	 		background-image: linear-gradient(#CB1F26,#C01D24);
+	 		border-radius: 6px;
+	 		box-shadow: 0 1px 1px #D32128;
+	 	}
+
+	 	#third-nax:before,#third-nav:after{
+	 		content: " ";
+	 		display: table;
+	 	}
+		
+		#third-nav:after {
+			clear: both;
+		}
+
+	 	#third-nav li {
+	 		float: left;
+	 		border-right: 1px solid #AA1520;
+	 		box-shadow: 1px 0 0 #D32128;
+	 		position: relative;
+	 		list-style: none;
+	 	}
+
+	 	#third-nav li a {
+	 		float: left;
+	 		padding: 12px 30px;
+	 		color: white;
+	 		font: bold 12px;
+	 		text-decoration: none;
+	 		text-shadow: 0 1px 0 #AA1520;
+	 	}
+
+	 	#third-nav li ul {
+	 		visibility: hidden;
+	 		position: absolute;
+	 		list-style: none;
+	 		top: 40px;
+	 		left: 0;
+	 		z-index: 1;
+	 		padding: 0;
+	 		background-color: #B51B23;
+	 		background-image: linear-gradient(#CB1F26,#C01D24);
+	 		box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.3);
+	 		border-radius: 3px;
+	 		opacity: 0;
+	 		margin: 20px 0 0 0;
+	 		transition: all .2s ease-in-out;
+	 	}
+
+	 	#third-nav ul li:hover>ul {
+	 		opacity: 1;
+	 		visibility: visible;
+	 		margin: 0;
+	 	}
+
+	 	#third-nav ul ul li {
+	 		display: block;
+	 		border: 0;
+	 		box-shadow: 0 1px 0 #B51B23,0 2px 0 #D32128;
+	 	}
+
+	 	#third-nav ul ul a {
+	 		padding: 10px;
+	 		width: 130px;
+	 		display: block;
+	 		float: none;
+	 	}
+
+	 	#third-nav ul ul a:hover{
+	 		background-color: #D7949A;
+	 	}
+
+	 	#third-nav ul ul li:first-child>a {
+	 		border-radius: 3px 3px 0 0;
+	 	}
+	 	#third-nav ul ul li:last-child>a {
+	 		border-radius: 0 0 3px 3px;
+	 	}
+
+	 	#third-nav ul ul li:first-child>a:before{
+	 		content: "";
+	 		position: absolute;
+	 		left: 40px;
+	 		top: -6px;
+	 		border-left: 6px solid transparent;
+	 		border-right: 6px solid transparent;
+	 		border-bottom: 6px solid #B51B23;
+	 	}
+	 	#third-nav ul ul li:first-child>a:hover:before{
+	 		border-bottom-color: #D7949A;
+	 	}
+
+	 	#third-nav ul ul ul {
+	 		top: 0;
+	 		left: 150px;
+	 		margin: 0 0 0 20px;
+	 		box-shadow: -1px 0 0 rgba(255, 255, 255, 0.3)
+	 	}
+
+	 	#third-nav ul ul ul li:first-child a:before{
+	 		left: -6px;
+	 		top: 50%;
+	 		margin-top: -6px;
+	 		border-left: 0;
+	 		border-bottom: 6px solid transparent;
+	 		border-top: 6px solid transparent;
+	 		border-right: 6px solid #B51B23;
+	 	}
+
+	 	#third-nav ul ul ul li:first-child a:hover:before{
+	 		border-right-color: #D7949A;
+	 		border-bottom-color: transparent;
+	 	}
+	</style>
+</head>
+<body>
+	<div id="first-nav">
+		<ul>
+			<li><a href="#">我是第一项</a></li>
+			<li><a href="#">我是第二项</a>
+				<ul>
+					<li><a href="#">二级菜单</a></li>
+					<li><a href="#">二级菜单</a></li>
+				</ul>
+			</li>
+			<li><a href="#">我是第三项</a>
+				<ul>
+					<li><a href="#">二级菜单</a></li>
+					<li><a href="#">二级菜单</a></li>
+				</ul>
+			</li>
+			<li><a href="#">我是第四项</a></li>
+			<li><a href="#">我是第五项</a></li>
+		</ul>
+	</div>
+
+	<div id="second-nav">
+		<ul>
+			<li><a href="#">我是第一项<span>First</span></a></li>
+			<li><a href="#">我是第二项<span>Second</span></a></li>
+			<li><a href="#">我是第三项<span>Third</span></a></li>
+			<li><a href="#">我是第四项<span>Forth</span></a></li>
+		</ul>
+	</div>
+
+	<div id="third-nav">
+		<ul>
+			<li><a href="#">我是一级</a></li>
+			<li><a href="#">我是一级</a></li>
+			<li><a href="#">我是一级</a>
+				<ul>
+					<li><a href="#">我是二级</a>
+						<ul>
+							<li><a href="#">我是三级</a></li>
+							<li><a href="#">我是三级</a></li>
+							<li><a href="#">我是三级</a></li>
+						</ul>
+					</li>
+					<li><a href="#">我是二级</a></li>
+					<li><a href="#">我是二级</a></li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>

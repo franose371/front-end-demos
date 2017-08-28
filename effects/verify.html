@@ -2,49 +2,73 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1 ,user-scalable=no">
 	<title>验证邮箱和密码</title>
 	<style type="text/css">
+		#verify {
+
+		}
 		.info {
 			font-size: 12px;
 			color: red;
+		}
+		.title {
+			padding-right: 20px;
+		}
+
+		@media (max-width:400px) {
+			.info {
+				display: block;
+				padding-left: 50px;
+			}
 		}
 	</style>
 </head>
 <body>
 	<div id="verify">
 		<div class="verify-item">
-			<input type="text" name="email" id="email"><span class="info"></span>
+			<span class="title">邮箱</span><input type="text" name="email" id="email"><span class="info"></span>
 		</div>
 		<div class="verify-item">
-			<input type="text" name="phone" id="phone"><span class="info"></span>
+			<span class="title">手机</span><input type="text" name="phone" id="phone"><span class="info"></span>
 		</div>
 	</div>
+
+
 	<script type="text/javascript">
 		oMail = document.getElementById("email");
 		oPhone = document.getElementById("phone");
 		oInfo = document.getElementsByClassName("info");
-		oMail.onblur = function () {
-			var str = oMail.value;
-			if (!isEmail(str)) {
-				oInfo[0].style.color = 'red';
-				oInfo[0].innerHTML = 'not an email address';
-			}
-			else {
-				oInfo[0].style.color = 'green';
-				oInfo[0].innerHTML = '^_^';
+
+
+		var showInfo = function(ele) {
+			if(ele.id==="email"){
+				if (!isEmail(ele.value)) {
+					ele.nextSibling.style.color = 'red';
+					ele.nextSibling.innerHTML = "not an email address";
+				} else{
+					ele.nextSibling.style.color = 'green';
+					ele.nextSibling.innerHTML = '√'
+				}
+			} else if(ele.id==="phone"){
+				if (!isMobilePhone(ele.value)) {
+					ele.nextSibling.style.color = 'red';
+					ele.nextSibling.innerHTML = 'not a phone number'
+				} else {
+					ele.nextSibling.style.color = 'green';
+					ele.nextSibling.innerHTML = '√'
+				}
 			}
 		}
 
-		oPhone.onblur = function () {
-			var str = oPhone.value;
-			if (!isMobilePhone(str)) {
-				oInfo[1].style.color = 'red';
-				oInfo[1].innerHTML = 'not a phone number';
-			}
-			else {
-				oInfo[1].style.color = 'green';
-				oInfo[1].innerHTML = '^_^';
-			}
+
+
+		oPhone.onblur = function (e) {
+			showInfo(e.target);
+		}
+
+		oMail.onblur = function(e) {
+			showInfo(e.target);
 		}
 
 		// 判断是否为邮箱地址
