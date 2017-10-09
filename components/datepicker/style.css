@@ -23,8 +23,8 @@ html {
 .ui-datepicker-wrapper {
 	width: 240px;
 	font-size: 100%;
-	color: #666;
-	box-shadow: 2px 2px 8px 2px rgba(128, 128, 128, .3);
+	color: #AB96AB;
+	box-shadow: 2px 2px 8px 2px rgba(235, 228, 234, .3);
 	display: none;
 	position: absolute;
 }
@@ -38,7 +38,7 @@ html {
 	height: 50px;
 	line-height: 50px;
 	text-align: center;
-	background: #f0f0f0;
+	background-color: #E8D1E7;
 	border-bottom: 1px solid #ccc;
 	font-weight: bold;
 }
@@ -85,4 +85,12 @@ html {
 	font-size: 80%;
 	width: 14%;
 	cursor: pointer;
+}
+
+.ui-datepicker-wrapper .ui-datepicker-body td:hover {
+	border: 1px solid #f0f0f0;
+	font-size: 80%;
+	width: 14%;
+	cursor: pointer;
+	background-color: #EBE4EA;
 }

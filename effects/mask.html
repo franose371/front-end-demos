@@ -57,32 +57,26 @@
 
 <button id="login">Click me!</button>
 
-<!-- <div id="login-container">
-	<div class="login-con">
-		<div id="close">X</div>
-	</div>
-</div>
-<div id="mask"></div> -->
-
 <script type="text/javascript">
-	var oBtn = document.getElementById("login");
+	var oBtn = document.getElementById("login"),
+		oMask = document.createElement("div"),
+		oLogin = document.createElement("div"),
+		oCon = document.createElement("div"),
+		oClose = document.createElement("div")
 
-	function loginMask() {
+	function createDom () {
 		//获取页面的高度和宽度
 		var sHeight = window.screen.height;
 		var sWidth = window.screen.width;
 
-
-		var oMask = document.createElement("div");
 		oMask.id = "mask";
 		oMask.style.height = sHeight + "px";
 		oMask.style.width = sWidth + "px";
 
-		var oLogin = document.createElement("div");
 		oLogin.id = "login-container";
-		var oCon = document.createElement("div");
+
 		oCon.className = "login-con";
-		var oClose = document.createElement("div");
+
 		oClose.id = "close";
 		oClose.innerHTML = "X";
 
@@ -95,34 +89,27 @@
 		oLogin.appendChild(oCon);
 		oCon.appendChild(oClose);
 
-		cHeight = oCon.offsetHeight;
-		cWidth = oCon.offsetWidth;
 
-		//函数节流
-		function throttle(method, context) {
-			clearTimeout(method.tId);
-			method.tId = setTimeout(function() {
-				method.call(context);
-			}, 100);
-		}
+	}
 
+	//设置登录模块的top和left值，使其居中显示
+	function resizeHandler() {
+		oLogin.style.left = (document.documentElement.clientWidth - parseInt(oCon.offsetWidth)) / 2 + "px";
+		oLogin.style.top = (document.documentElement.clientHeight - parseInt(oCon.offsetHeight)) / 2 + "px";
+	}
+
+	//函数节流
+	function throttle(method, context) {
+		clearTimeout(method.tId);
+		method.tId = setTimeout(function() {
+			method.call(context);
+		}, 100);
+	}
+
+	function loginMask() {
+		createDom();
 		resizeHandler();
-		//设置登录模块的top和left值，使其居中显示
-		function resizeHandler() {
-			var wHeight = document.documentElement.clientHeight
-			var wWidth = document.documentElement.clientWidth
-
-			oLogin.style.left = (wWidth - parseInt(cWidth)) / 2 + "px";
-			oLogin.style.top = (wHeight - parseInt(cHeight)) / 2 + "px";
-		}
-
-
-
-		//当调整窗口大小时，登录框的位置也随之改变
-		window.onresize = function() {
-			throttle(resizeHandler, window);
-		};
-
+		
 		oClose.addEventListener("click", function() {
 			if (oLogin.style.display === 'block') {
 				oLogin.style.display = 'none';
@@ -141,14 +128,16 @@
 			}
 		}, false);
 
+		//当调整窗口大小时，登录框的位置也随之改变
+		window.onresize = function() {
+			throttle(resizeHandler, window);
+		};
+
 	}
 
 
-	oBtn.addEventListener("click", function() {
-		loginMask();
-	}, false)
-
-
+	oBtn.addEventListener("click", loginMask, false);
+			
 </script>
 </body>
 </html>

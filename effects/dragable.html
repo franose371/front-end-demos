@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		#panel {
+			height: 50%;
+			width: 30%;
+			color: white;
+			position: absolute;
+			left: 200px;
+		}
+		#title{
+			height: 20%;
+			width: 100%;
+			background-color: #34352C;
+			text-align: center;
+			line-height: 300%;
+			cursor: move;
+		}
+		#content {
+			height: 80%;
+			width: 100%;
+			background-color: #C9CABB;
+			line-height: 200%;
+		}
+	</style>
+</head>
+<body>
+	<div id="panel">
+		<div id="title">Title</div>
+		<div id="content">Content</div>
+	</div>
+	<script type="text/javascript">
+		var oPan = document.getElementById("panel"),
+			oTitle = document.getElementById("title"),
+			oCon = document.getElementById("content"),
+			isMoveable = false,
+			offX = 0,
+			offY = 0,
+			pageWidth = 0,
+			pageHeight = 0;
+
+		oTitle.onmousedown = function (e) {
+			isMoveable = true;
+			offX = e.offsetX;
+			offY = e.offsetY;
+			pageWidth =  document.documentElement.clientWidth;
+			pageHeight = document.documentElement.clientHeight;
+		}
+		oTitle.onmouseup = function () {
+			isMoveable = false;
+		}
+		oTitle.onmousemove = function(event){
+			e = event || window.event;
+			if (isMoveable) {
+					oPan.style.left = Math.min((pageWidth - oPan.offsetWidth), Math.max(0,e.clientX - offX)) + 'px';
+					oPan.style.top = Math.min((pageHeight - oPan.offsetHeight), Math.max(0,e.clientY - offY)) + 'px';
+				}
+		}
+	</script>
+</body>
+</html>
